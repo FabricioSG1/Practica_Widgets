@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-
 class ColumnAndRow extends StatefulWidget {
-  
   const ColumnAndRow({super.key});
-
   @override
   State<ColumnAndRow> createState() => _ColumnAndRowState();
 }
 class _ColumnAndRowState extends State<ColumnAndRow> {
-  
+  bool isRow = false;
+  MainAxisAlignment mainAlignment = MainAxisAlignment.center;
+  CrossAxisAlignment crossAlignment = CrossAxisAlignment.center;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,74 +16,130 @@ class _ColumnAndRowState extends State<ColumnAndRow> {
         title: const Text("Pantalla Column y Row"),
         backgroundColor: const Color.fromARGB(255, 0, 150, 110),
         foregroundColor: Color.fromARGB(255, 231, 231, 231),
-
       ),
-
       body: Padding(
-  padding: const EdgeInsets.all(1),
-  child: Column(
-    children: [
-
-      Expanded(
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 1,
-                  ),
-                ),
-                child: const Text("A",
-                    style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-
-              Container(
-                width: 90,
-                height: 90,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 1,
+      padding: const EdgeInsets.all(1),
+      child: Column(
+      children: [
+        Expanded(
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: isRow
+            ? Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: mainAlignment,
+                crossAxisAlignment: crossAlignment,
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1,
+                      ),
+                    ),
+                    child: const Text(
+                      "A",
+                      style: TextStyle(fontSize: 18),
                     ),
                   ),
-                child: const Text("B",
-                style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
 
-              Container(
-                width: 60,
-                height: 60,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 1,
-                  ), 
-                ),
-                child: const Text("C",
-                    style: TextStyle(
-                    fontSize: 18,
+                  Container(
+                    width: 90,
+                    height: 90,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1,
+                      ),
+                    ),
+                    child: const Text(
+                      "B",
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
-                ),
-            ),
-          ],
-        ),
+
+                  Container(
+                    width: 60,
+                    height: 60,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1,
+                      ),
+                    ),
+                    child: const Text(
+                      "C",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ],
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: mainAlignment,
+                crossAxisAlignment: crossAlignment,
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1,
+                      ),
+                    ),
+                    child: const Text(
+                      "A",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+
+                  Container(
+                    width: 90,
+                    height: 90,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1,
+                      ),
+                    ),
+                    child: const Text(
+                      "B",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+
+                  Container(
+                    width: 60,
+                    height: 60,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1,
+                      ),
+                    ),
+                    child: const Text(
+                      "C",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
       ),
     ),
 
@@ -104,8 +160,12 @@ class _ColumnAndRowState extends State<ColumnAndRow> {
                 const Spacer(),
                 const Text("Column"),
                 Switch(
-                  value: false,
-                  onChanged: (value) {},
+                  value: isRow,
+                  onChanged: (value) {
+                    setState(() {
+                      isRow = value;
+                    });
+                  },
                 ),
                 const Text("Row"),
               ],
@@ -122,7 +182,11 @@ class _ColumnAndRowState extends State<ColumnAndRow> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      mainAlignment = MainAxisAlignment.start;
+                    });
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
@@ -140,7 +204,11 @@ class _ColumnAndRowState extends State<ColumnAndRow> {
                 ),
 
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      mainAlignment = MainAxisAlignment.center;
+                    });
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
@@ -158,7 +226,11 @@ class _ColumnAndRowState extends State<ColumnAndRow> {
                 ),
 
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      mainAlignment = MainAxisAlignment.end;  
+                    });
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
@@ -190,7 +262,11 @@ class _ColumnAndRowState extends State<ColumnAndRow> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      crossAlignment = CrossAxisAlignment.start;
+                    });
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
@@ -208,7 +284,11 @@ class _ColumnAndRowState extends State<ColumnAndRow> {
                 ),
 
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      crossAlignment = CrossAxisAlignment.center;
+                    });
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
@@ -226,7 +306,11 @@ class _ColumnAndRowState extends State<ColumnAndRow> {
                 ),
 
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      crossAlignment = CrossAxisAlignment.end;
+                    });
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
